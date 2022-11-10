@@ -5,18 +5,9 @@ import { AllStudentsComponent } from './all-students/all-students.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AllStudentsComponent,
-  },
-  {
-    path: 'add-student',
-    component: AddStudentComponent,
-  },
-  {
-    path: 'edit-student/:id',
-    component: EditStudentComponent,
-  },
+  { path: '', component: AllStudentsComponent },
+  { path: 'add-student', component: AddStudentComponent },
+  { path: 'edit-student/:id', component: EditStudentComponent },
 ];
 
 @NgModule({

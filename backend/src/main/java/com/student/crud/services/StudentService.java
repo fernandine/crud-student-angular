@@ -7,6 +7,7 @@ import com.student.crud.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class StudentService {
     @Autowired
     private StudentRepository repository;
 
+
     public List<StudentDto> findAll() {
         List<Student> list = repository.findAll();
         return list.stream().map(x -> new StudentDto(x)).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public StudentDto findById(Long id) {
         Optional<Student> obj = repository.findById(id);
         Student student = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
@@ -31,6 +34,7 @@ public class StudentService {
 
     }
 
+    @Transactional
     public StudentDto insert(StudentDto dto) {
         Student entity = new Student();
         entity.setFirstName(dto.getFirstName());
@@ -41,6 +45,7 @@ public class StudentService {
         return new StudentDto(entity);
     }
 
+    @Transactional
     public StudentDto update(Long id, StudentDto dto) {
         Student entity = repository.getReferenceById(id);
         entity.setFirstName(dto.getFirstName());
