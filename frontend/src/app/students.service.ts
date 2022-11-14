@@ -26,7 +26,7 @@ export class StudentsService {
 
   update(payload: Student): Observable<Student> {
     return this.httpClient.put<Student>(
-      `http://localhost:8080/8080/${payload.id}`,
+      `http://localhost:8080/students/${payload.id}`,
       payload
     );
   }
