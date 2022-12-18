@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
-			User entity = repository.getOne(id);
+			User entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new UserDTO(entity);
@@ -92,13 +92,13 @@ public class UserService implements UserDetailsService {
 	
 	private void copyDtoToEntity(UserDTO dto, User entity) {
 
-		entity.setFirstName(dto.getFirstName());
-		entity.setLastName(dto.getLastName());
+		entity.setUsername(dto.getUsername());
+		entity.setEmail(dto.getEmail());
 		entity.setEmail(dto.getEmail());
 		
 		entity.getRoles().clear();
 		for (RoleDTO roleDto : dto.getRoles()) {
-			Role role = roleRepository.getOne(roleDto.getId());
+			Role role = roleRepository.getReferenceById(roleDto.getId());
 			entity.getRoles().add(role);
 		}
 	}

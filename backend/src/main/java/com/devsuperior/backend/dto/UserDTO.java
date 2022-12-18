@@ -15,8 +15,7 @@ public class UserDTO implements Serializable {
 	private Long id;
 	
 	@NotBlank(message = "Campo obrigatório")
-	private String firstName;
-	private String lastName;
+	private String username;
 
 	@Email(message = "Favor entrar um email válido")
 	private String email;
@@ -26,17 +25,15 @@ public class UserDTO implements Serializable {
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String firstName, String lastName, String email) {
+	public UserDTO(Long id, String username, String email) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.username = username;
 		this.email = email;
 	}
-	
+
 	public UserDTO(User entity) {
 		id = entity.getId();
-		firstName = entity.getFirstName();
-		lastName = entity.getLastName();
+		username = entity.getUsername();
 		email = entity.getEmail();
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
@@ -49,20 +46,12 @@ public class UserDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -75,5 +64,9 @@ public class UserDTO implements Serializable {
 
 	public Set<RoleDTO> getRoles() {
 		return roles;
+	}
+
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
 	}
 }
